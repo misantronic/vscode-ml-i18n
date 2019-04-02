@@ -16,10 +16,13 @@ interface Language {
 }
 
 const API_URL = 'https://i18n.magicline.com/localization-api';
-const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Basic ${getConfig().token}`
-};
+
+function getHeaders() {
+    return {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${getConfig().token}`
+    };
+}
 
 export async function loadList() {
     const languages = await loadLanguages();
@@ -39,7 +42,7 @@ export async function loadList() {
         request(
             `${API_URL}/entry/list?platform%5B%5D=${platform}`,
             {
-                headers
+                headers: getHeaders()
             },
             (error, response, body) => {
                 if (error) {
@@ -76,7 +79,7 @@ export function loadLanguages() {
         request(
             `${API_URL}/language`,
             {
-                headers
+                headers: getHeaders()
             },
             (error, response, body) => {
                 if (error) {
@@ -125,7 +128,7 @@ export async function addEntry(
         request.post(
             `${API_URL}/entry`,
             {
-                headers,
+                headers: getHeaders(),
                 body: JSON.stringify(data)
             },
             (error, response, body) => {
