@@ -42,16 +42,19 @@
 			"properties": {
 				"ml.i18n.lang": {
 					"title": "Language",
+					"description": "Possible values are de, en, fr, it, pl, ru, sv, es, tr",
 					"type": "string",
 					"default": "de"
 				},
 				"ml.i18n.platform": {
 					"title": "Platform ID",
+					"description": "The ID of your platform, e.g. ml-webclient is 0",
 					"type": "number",
-					"default": 12
+					"default": 0
 				},
 				"ml.i18n.token": {
 					"title": "Token",
+					"description": "Please provide the Authorization Bearer when using i18n.magicline.com",
 					"type": "string"
 				}
 			}

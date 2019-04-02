@@ -1,22 +1,14 @@
 import * as vscode from 'vscode';
 import { findKey } from './utils';
-import { I18nItem, loadList } from './api';
+import { i18nItems } from './api';
 import { validateToken } from './config';
-
-const i18nItems: I18nItem[] = [];
 
 export function hoverProvider() {
     return vscode.languages.registerHoverProvider(
         { scheme: 'file', language: 'typescript' },
         {
             provideHover: async (document, position) => {
-                if (validateToken({ warn: false })) {
-                    if (i18nItems.length === 0) {
-                        const items = await loadList();
-
-                        i18nItems.push(...items);
-                    }
-                } else {
+                if (!validateToken({ warn: false })) {
                     return;
                 }
 

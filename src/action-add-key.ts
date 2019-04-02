@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { loadList, addEntry } from './api';
+import { addEntry, i18nItems } from './api';
 
 export async function addKey(value?: string) {
     const key =
@@ -11,8 +11,6 @@ export async function addKey(value?: string) {
     if (!key) {
         return undefined;
     }
-
-    const i18nItems = await loadList();
 
     if (i18nItems.some(obj => obj.key === key)) {
         vscode.window.showWarningMessage('The key already exists.');

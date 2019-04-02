@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { loadList } from './api';
+import { i18nItems } from './api';
 import { filterKeys } from './utils';
 
 export async function search() {
@@ -11,7 +11,6 @@ export async function search() {
         return undefined;
     }
 
-    const i18nItems = await loadList();
     const results = filterKeys(i18nItems, input);
 
     if (results.length === 0) {

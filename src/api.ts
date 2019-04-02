@@ -24,7 +24,21 @@ function getHeaders() {
     };
 }
 
-export async function loadList() {
+export const i18nItems: I18nItem[] = [];
+
+export function onDidUpdateConfiguration() {
+    async function load() {
+        const items = await loadList();
+
+        i18nItems.push(...items);
+    }
+
+    load();
+
+    return vscode.workspace.onDidChangeConfiguration(load);
+}
+
+async function loadList() {
     const languages = await loadLanguages();
 
     return new Promise<I18nItem[]>((resolve, reject) => {
