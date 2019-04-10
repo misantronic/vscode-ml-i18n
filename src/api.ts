@@ -26,16 +26,17 @@ function getHeaders() {
 
 export const i18nItems: I18nItem[] = [];
 
+async function fillI18nItems() {
+    const items = await loadList();
+
+    i18nItems.length = 0;
+    i18nItems.push(...items);
+}
+
 export function onDidUpdateConfiguration() {
-    async function load() {
-        const items = await loadList();
+    fillI18nItems();
 
-        i18nItems.push(...items);
-    }
-
-    load();
-
-    return vscode.workspace.onDidChangeConfiguration(load);
+    return vscode.workspace.onDidChangeConfiguration(fillI18nItems);
 }
 
 async function loadList() {
@@ -145,10 +146,12 @@ export async function addEntry(
                 headers: getHeaders(),
                 body: JSON.stringify(data)
             },
-            (error, response, body) => {
+            async (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else if (response.statusCode === 200) {
+                    await fillI18nItems();
+
                     resolve(JSON.parse(body));
                 } else {
                     reject(JSON.parse(body));
