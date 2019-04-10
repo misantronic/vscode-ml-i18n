@@ -3,7 +3,7 @@
 	"displayName": "ML I18n",
 	"description": "Extension for managing MagicLine GmbH i18n-keys",
 	"publisher": "misantronic",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "MIT",
 	"engines": {
 		"vscode": "^1.32.0"
